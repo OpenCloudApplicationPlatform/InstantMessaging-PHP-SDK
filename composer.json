@@ -1,0 +1,25 @@
+{
+  "name": "OpenCloudApplicationPlatform/InstantMessaging-PHP-SDK",
+  "description": "实时通讯组件的PHP-SDK",
+  "keywords": ["实时通讯","OpenCloudApplicationPlatform", "InstantMessaging", "InstantMessaging-PHP-SDK"],
+  "homepage": "http://github.com/OpenCloudApplicationPlatform/InstantMessaging-PHP-SDK",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Small six",
+      "email": "itxiao6@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0",
+    "doctrine/cache": "^1.6",
+    "guzzlehttp/guzzle": "^6.3"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "OCAP\\InstantMessaging\\": "src/"
+    }
+  }
+}
