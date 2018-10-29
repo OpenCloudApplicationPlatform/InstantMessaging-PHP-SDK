@@ -1,6 +1,7 @@
 <?php
 namespace OCAP\InstantMessaging\Greoup;
 use OCAP\InstantMessaging\Auth\Client;
+use OCAP\InstantMessaging\Bride\Http;
 
 /**
  * 群组相关操作
@@ -14,6 +15,16 @@ class Index
      * @var null|Client
      */
     protected $client = null;
+    /**
+     * 创建群组api
+     * @var string
+     */
+    protected static $create_group_api_url = "http://im.service.open-cloud-api.com/Group/Index/create_group.html";
+    /**
+     * 获取群组列表
+     * @var string
+     */
+    protected static $get_group_lists_api_url = "http://im.service.open-cloud-api.com/Group/Index/get_lists.html";
     /**
      * 实例化群组相关操作
      * Index constructor.
@@ -33,17 +44,52 @@ class Index
      * @param $tourist_message
      * @param $tourist_join
      * @param $message
+     * @return \Doctrine\Common\Collections\ArrayCollection|string
+     * @throws \Throwable
      */
     public function create_group($name,$icon,$desc,$join_check,$tourist_message,$tourist_join,$message)
     {
-        $this -> client -> get_token();
+        try{
+            $result = Http::request('POST',self::$create_group_api_url) -> withBody([
+                'name'=>$name,
+                'icon'=>$icon,
+                'desc'=>$desc,
+                'join_check'=>$join_check,
+                'tourist_message'=>$tourist_message,
+                'tourist_join'=>$tourist_join,
+                'message'=>$message
+            ]) -> send();
+            return $result;
+        }catch (\Throwable $throwable){
+            throw $throwable;
+        }
     }
 
     /**
      * 获取群组列表
+     * @param null $tourist_join
+     * @param null $tourist_message
+     * @param null $join_check
+     * @param null $keyword
+     * @param int $page_num
+     * @param int $index
+     * @return \Doctrine\Common\Collections\ArrayCollection|string
+     * @throws \Throwable
      */
-    public function group_lists()
+    public function group_lists($tourist_join=null,$tourist_message=null,$join_check=null,$keyword=null,$page_num=20,$index=1)
     {
-
+        try{
+            $result = Http::request('POST',self::$create_group_api_url) -> withBody([
+                'page_num'=>$page_num,
+                'index'=>$index,
+                'keyword'=>$keyword,
+                'join_check'=>$join_check,
+                'tourist_message'=>$tourist_message,
+                'tourist_join'=>$tourist_join
+            ]) -> send();
+            return $result;
+        }catch (\Throwable $throwable){
+            throw $throwable;
+        }
     }
 }
