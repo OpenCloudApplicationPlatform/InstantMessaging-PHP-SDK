@@ -1,11 +1,11 @@
 <?php
-namespace OCAP\InstantMessaging\Bride;
+namespace OCAP\InstantMessaging\Bridge;
 use GuzzleHttp\Client;
 use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Http 工具类
  * Class Http
- * @package OCAP\InstantMessaging\Bride
+ * @package OCAP\InstantMessaging\Bridge
  */
 class Http
 {
@@ -25,6 +25,11 @@ class Http
      * Request Query
      */
     protected $query = array();
+    /**
+     * Request Content-Type
+     * @var string
+     */
+    protected $content_type = 'application/json';
     /**
      * SSL 证书
      */
@@ -59,6 +64,7 @@ class Http
     public function withBody(array $body)
     {
         $this->body = Serializer::jsonEncode($body);
+        $this -> content_type = "application/json";
         return $this;
     }
     /**
@@ -67,6 +73,7 @@ class Http
     public function withXmlBody(array $body)
     {
         $this->body = Serializer::xmlEncode($body);
+        $this -> content_type = "application/xml";
         return $this;
     }
     /**
@@ -96,6 +103,10 @@ class Http
         if( $this->sslCert && $this->sslKey ) {
             $options['cert']    = $this->sslCert;
             $options['ssl_key'] = $this->sslKey;
+        }
+        // content-type
+        if($this -> content_type){
+            $options['headers']['Content-Type'] = $this -> content_type;
         }
         $response = (new Client)->request($this->method, $this->uri, $options);
         $contents = $response->getBody()->getContents();

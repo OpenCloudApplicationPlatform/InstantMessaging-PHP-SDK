@@ -1,9 +1,9 @@
 <?php
-namespace OCAP\InstantMessaging\Bride;
+namespace OCAP\InstantMessaging\Bridge;
 /**
  * 缓存辅助类
  * Trait CacheTrait
- * @package OCAP\InstantMessaging\Bride
+ * @package OCAP\InstantMessaging\Bridge
  */
 trait CacheTrait
 {

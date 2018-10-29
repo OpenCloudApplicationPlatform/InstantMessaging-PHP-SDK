@@ -1,9 +1,9 @@
 <?php
-namespace OCAP\InstantMessaging\Bride;
+namespace OCAP\InstantMessaging\Bridge;
 /**
  * RSA 工具类
  * Class RSA
- * @package OCAP\InstantMessaging\Bride
+ * @package OCAP\InstantMessaging\Bridge
  */
 class RSA
 {

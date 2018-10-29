@@ -1,12 +1,12 @@
 <?php
 namespace OCAP\InstantMessaging\Auth;
-use OCAP\InstantMessaging\Bride\CacheTrait;
-use OCAP\InstantMessaging\Bride\Config;
-use OCAP\InstantMessaging\Bride\Http;
+use OCAP\InstantMessaging\Bridge\CacheTrait;
+use OCAP\InstantMessaging\Bridge\Config;
+use OCAP\InstantMessaging\Bridge\Http;
 
 /**
  * Class Client
- * @package OCAP\InstantMessaging\Bride
+ * @package OCAP\InstantMessaging\Bridge
  */
 class Client
 {
@@ -17,25 +17,20 @@ class Client
     /**
      * @var string
      */
-    protected $auth_api_url = '';
+    protected $auth_api_url = 'http://auth.open-cloud-api.com/Client/Auth/get_token.html';
     /**
-     * @var null|string
+     * SDK 配置
+     * @var null|Config
      */
-    protected $app_id = null;
-    /**
-     * @var null|string
-     */
-    protected $app_key = null;
+    protected $config = null;
 
     /**
-     * Index constructor.
-     * @param string $app_id 应用id
-     * @param string $app_key 应用秘钥
+     * Client constructor.
+     * @param Config $config
      */
-    public function __construct($app_id,$app_key)
+    public function __construct(Config $config)
     {
-        $this -> app_id = $app_id;
-        $this -> app_key = $app_id;
+        $this -> config = $config;
     }
 
     /**
@@ -52,23 +47,32 @@ class Client
                 /**
                  * 请求接口
                  */
-                $res = Http::request('POST',$this -> auth_api_url) -> withBody(['app_id'=>$this -> app_id,'app_key'=>$this -> app_key]) ->send();
+                $res = Http::request('POST',$this -> auth_api_url) ->
+                    withBody(array(
+                        'app_id'=>$this -> config -> app_id,
+                        'access_key'=>$this -> config -> access_key
+                    )) ->
+                    send();
                 /**
                  * 判断是否请求成功
                  */
-                if($res -> status != 200){
-                    throw new \Exception($res -> msg);
+                if($res['status'] != 200){
+                    throw new \Exception($res['msg']);
                 }
                 /**
                  * 存储token
                  */
-                $this -> getCache() ->save('OCAP_InstantMessagingAuthToken_'.Config::API_VERSION.'_'.Config::SDK_VERSION,$res['token'],time()-$res['expire']);
+                $this -> getCache() ->save('OCAP_InstantMessagingAuthToken_'.Config::API_VERSION.'_'.Config::SDK_VERSION,$res['token'],time()-strtotime($res['expire']));
                 /**
                  * 验证token
                  */
-                if((!isset($res['token'])) || strlen($res['token'])){
-                    throw new \Exception('获取TokenId 失败');
+                if((!isset($res['token'])) || strlen($res['token']) < 1){
+                    throw new \Exception($res['msg']);
                 }
+                /**
+                 * 赋值
+                 */
+                $token = $res['token'];
             }catch (\Throwable $throwable){
                 throw $throwable;
             }

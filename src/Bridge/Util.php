@@ -1,8 +1,8 @@
 <?php
-namespace OCAP\InstantMessaging\Bride;
+namespace OCAP\InstantMessaging\Bridge;
 /**
  * Class Util
- * @package OCAP\InstantMessaging\Bride
+ * @package OCAP\InstantMessaging\Bridge
  */
 class Util
 {

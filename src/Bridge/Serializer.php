@@ -1,5 +1,5 @@
 <?php
-namespace OCAP\InstantMessaging\Bride;
+namespace OCAP\InstantMessaging\Bridge;
 
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -7,7 +7,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 /**
  * 序列化工具
  * Class Serializer
- * @package OCAP\InstantMessaging\Bride
+ * @package OCAP\InstantMessaging\Bridge
  */
 class Serializer
 {

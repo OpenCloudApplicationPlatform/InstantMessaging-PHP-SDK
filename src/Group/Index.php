@@ -1,12 +1,12 @@
 <?php
-namespace OCAP\InstantMessaging\Greoup;
+namespace OCAP\InstantMessaging\Group;
 use OCAP\InstantMessaging\Auth\Client;
-use OCAP\InstantMessaging\Bride\Http;
+use OCAP\InstantMessaging\Bridge\Http;
 
 /**
  * 群组相关操作
  * Class Index
- * @package OCAP\InstantMessaging\Greoup
+ * @package OCAP\InstantMessaging\Group
  */
 class Index
 {
@@ -57,7 +57,8 @@ class Index
                 'join_check'=>$join_check,
                 'tourist_message'=>$tourist_message,
                 'tourist_join'=>$tourist_join,
-                'message'=>$message
+                'message'=>$message,
+                'token'=>$this -> client -> getToken()
             ]) -> send();
             return $result;
         }catch (\Throwable $throwable){
@@ -79,13 +80,14 @@ class Index
     public function group_lists($tourist_join=null,$tourist_message=null,$join_check=null,$keyword=null,$page_num=20,$index=1)
     {
         try{
-            $result = Http::request('POST',self::$create_group_api_url) -> withBody([
+            $result = Http::request('POST',self::$get_group_lists_api_url) -> withBody([
                 'page_num'=>$page_num,
                 'index'=>$index,
                 'keyword'=>$keyword,
                 'join_check'=>$join_check,
                 'tourist_message'=>$tourist_message,
-                'tourist_join'=>$tourist_join
+                'tourist_join'=>$tourist_join,
+                'token'=>$this -> client -> getToken()
             ]) -> send();
             return $result;
         }catch (\Throwable $throwable){
