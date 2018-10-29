@@ -41,13 +41,11 @@ class Index
      * @param $icon
      * @param $desc
      * @param $join_check
-     * @param $tourist_message
-     * @param $tourist_join
      * @param $message
      * @return \Doctrine\Common\Collections\ArrayCollection|string
      * @throws \Throwable
      */
-    public function create_group($name,$icon,$desc,$join_check,$tourist_message,$tourist_join,$message)
+    public function create_group($name,$icon,$desc,$join_check,$message)
     {
         try{
             $result = Http::request('POST',self::$create_group_api_url) -> withBody([
@@ -55,8 +53,8 @@ class Index
                 'icon'=>$icon,
                 'desc'=>$desc,
                 'join_check'=>$join_check,
-                'tourist_message'=>$tourist_message,
-                'tourist_join'=>$tourist_join,
+                'tourist_message'=>3,
+                'tourist_join'=>3,
                 'message'=>$message,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
