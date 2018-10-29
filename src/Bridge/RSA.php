@@ -3,7 +3,7 @@ namespace OCAP\InstantMessaging\Bride;
 /**
  * RSA 工具类
  * Class RSA
- * @package App\Services
+ * @package OCAP\InstantMessaging\Bride
  */
 class RSA
 {
