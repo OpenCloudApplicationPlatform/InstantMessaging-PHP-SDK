@@ -33,7 +33,7 @@ class Config
         /**
          * 用户端的公钥文件和文本的兼容
          */
-        if(in_array($array['rsa_public'])){
+        if(is_file($array['rsa_public'])){
             $array['rsa_public'] = file_get_contents($array['rsa_public']);
         }
         /**
