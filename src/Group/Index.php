@@ -31,6 +31,21 @@ class Index
      */
     protected static $disband_group_info_api_url = "http://im.service.open-cloud-api.com/Group/Index/disband_group.html";
     /**
+     * 开启全员禁言
+     * @var string
+     */
+    protected static $open_all_disable_message_api_url = "http://im.service.open-cloud-api.com/Group/Index/open_all_disable_message.html";
+    /**
+     * 关闭全员禁言
+     * @var string
+     */
+    protected static $close_all_disable_message_api_url = "http://im.service.open-cloud-api.com/Group/Index/close_all_disable_message.html";
+    /**
+     * 获取群组是否可以发送消息
+     * @var string
+     */
+    protected static $group_is_open_message_api_url = "http://im.service.open-cloud-api.com/Group/Index/group_is_open_message.html";
+    /**
      * 获取群组列表
      * @var string
      */
@@ -125,6 +140,63 @@ class Index
     {
         try{
             $result = Http::request('POST',self::$disband_group_info_api_url) -> withBody([
+                'group_id'=>$group_id,
+                'token'=>$this -> client -> getToken()
+            ]) -> send();
+            return $result;
+        }catch (\Throwable $throwable){
+            throw $throwable;
+        }
+    }
+
+    /**
+     * 开启全员禁言
+     * @param $group_id
+     * @return \Doctrine\Common\Collections\ArrayCollection|string
+     * @throws \Throwable
+     */
+    public function open_all_disable_message($group_id)
+    {
+        try{
+            $result = Http::request('POST',self::$open_all_disable_message_api_url) -> withBody([
+                'group_id'=>$group_id,
+                'token'=>$this -> client -> getToken()
+            ]) -> send();
+            return $result;
+        }catch (\Throwable $throwable){
+            throw $throwable;
+        }
+    }
+
+    /**
+     * 关闭全员禁言
+     * @param $group_id
+     * @return \Doctrine\Common\Collections\ArrayCollection|string
+     * @throws \Throwable
+     */
+    public function close_all_disable_message($group_id)
+    {
+        try{
+            $result = Http::request('POST',self::$close_all_disable_message_api_url) -> withBody([
+                'group_id'=>$group_id,
+                'token'=>$this -> client -> getToken()
+            ]) -> send();
+            return $result;
+        }catch (\Throwable $throwable){
+            throw $throwable;
+        }
+    }
+
+    /**
+     * 群组是否可以发送消息
+     * @param $group_id
+     * @return \Doctrine\Common\Collections\ArrayCollection|string
+     * @throws \Throwable
+     */
+    public function group_is_open_message($group_id)
+    {
+        try{
+            $result = Http::request('POST',self::$group_is_open_message_api_url) -> withBody([
                 'group_id'=>$group_id,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
