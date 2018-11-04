@@ -21,7 +21,9 @@ class Config
      * 配置
      * @var array
      */
-    protected $config = [];
+    protected $config = [
+        'im_service_base'=>'http://im.service.open-cloud-api.com'
+    ];
 
     /**
      * 配置实例
@@ -40,7 +42,10 @@ class Config
          * 加密数据
          */
         $array['access_key'] = RSA::publicEncrypt($array['rsa_public'],$array['access_key']);
-        $this -> config = new ArrayCollection($array);
+        /**
+         * 合并默认配置 和 自定义配置
+         */
+        $this -> config = new ArrayCollection(array_merge($this -> config,$array));
     }
 
     /**

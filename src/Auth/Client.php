@@ -34,6 +34,20 @@ class Client
     }
 
     /**
+     * 获取配置实例
+     * @param null $name
+     * @return null|Config
+     */
+    public function getConfig($name=null)
+    {
+        if($name != null){
+            return isset($this -> config[$name])?$this -> config[$name]:null;
+        }else{
+            return $this -> config;
+        }
+    }
+
+    /**
      * 获取token
      * @return mixed
      * @throws \Throwable
