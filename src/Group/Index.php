@@ -21,6 +21,11 @@ class Index
      */
     protected static $create_group_api_url = "http://im.service.open-cloud-api.com/Group/Index/create_group.html";
     /**
+     * 获取群组信息
+     * @var string
+     */
+    protected static $get_group_info_api_url = "http://im.service.open-cloud-api.com/Group/Index/get_info.html";
+    /**
      * 获取群组列表
      * @var string
      */
@@ -62,6 +67,24 @@ class Index
         }
     }
 
+    /**
+     * 获取群组信息
+     * @param $group_id
+     * @return \Doctrine\Common\Collections\ArrayCollection|string
+     * @throws \Throwable
+     */
+    public function get_info($group_id)
+    {
+        try{
+            $result = Http::request('POST',self::$get_group_info_api_url) -> withBody([
+                'group_id'=>$group_id,
+                'token'=>$this -> client -> getToken()
+            ]) -> send();
+            return $result;
+        }catch (\Throwable $throwable){
+            throw $throwable;
+        }
+    }
     /**
      * 获取群组列表
      * @param null $join_check
