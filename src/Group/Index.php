@@ -26,6 +26,11 @@ class Index
      */
     protected static $get_group_info_api_url = "http://im.service.open-cloud-api.com/Group/Index/get_info.html";
     /**
+     * 解散群组
+     * @var string
+     */
+    protected static $disband_group_info_api_url = "http://im.service.open-cloud-api.com/Group/Index/disband_group.html";
+    /**
      * 获取群组列表
      * @var string
      */
@@ -102,6 +107,25 @@ class Index
                 'index'=>$index,
                 'keyword'=>$keyword,
                 'join_check'=>$join_check,
+                'token'=>$this -> client -> getToken()
+            ]) -> send();
+            return $result;
+        }catch (\Throwable $throwable){
+            throw $throwable;
+        }
+    }
+
+    /**
+     * 解散群组
+     * @param $group_id
+     * @return \Doctrine\Common\Collections\ArrayCollection|string
+     * @throws \Throwable
+     */
+    public function disband_group($group_id)
+    {
+        try{
+            $result = Http::request('POST',self::$disband_group_info_api_url) -> withBody([
+                'group_id'=>$group_id,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
             return $result;
