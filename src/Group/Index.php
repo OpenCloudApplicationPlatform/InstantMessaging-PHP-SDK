@@ -53,8 +53,6 @@ class Index
                 'icon'=>$icon,
                 'desc'=>$desc,
                 'join_check'=>$join_check,
-                'tourist_message'=>3,
-                'tourist_join'=>3,
                 'message'=>$message,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
@@ -66,8 +64,6 @@ class Index
 
     /**
      * 获取群组列表
-     * @param null $tourist_join
-     * @param null $tourist_message
      * @param null $join_check
      * @param null $keyword
      * @param int $page_num
@@ -75,7 +71,7 @@ class Index
      * @return \Doctrine\Common\Collections\ArrayCollection|string
      * @throws \Throwable
      */
-    public function group_lists($tourist_join=null,$tourist_message=null,$join_check=null,$keyword=null,$page_num=20,$index=1)
+    public function group_lists($join_check=null,$keyword=null,$page_num=20,$index=1)
     {
         try{
             $result = Http::request('POST',self::$get_group_lists_api_url) -> withBody([
@@ -83,8 +79,6 @@ class Index
                 'index'=>$index,
                 'keyword'=>$keyword,
                 'join_check'=>$join_check,
-                'tourist_message'=>$tourist_message,
-                'tourist_join'=>$tourist_join,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
             return $result;
