@@ -16,40 +16,38 @@ class Index
      */
     protected $client = null;
     /**
-     * 创建群组api
-     * @var string
+     * 接口列表
      */
-    protected static $create_group_api_url = "http://im.service.open-cloud-api.com/Group/Index/create_group.html";
-    /**
-     * 获取群组信息
-     * @var string
-     */
-    protected static $get_group_info_api_url = "http://im.service.open-cloud-api.com/Group/Index/get_info.html";
-    /**
-     * 解散群组
-     * @var string
-     */
-    protected static $disband_group_info_api_url = "http://im.service.open-cloud-api.com/Group/Index/disband_group.html";
-    /**
-     * 开启全员禁言
-     * @var string
-     */
-    protected static $open_all_disable_message_api_url = "http://im.service.open-cloud-api.com/Group/Index/open_all_disable_message.html";
-    /**
-     * 关闭全员禁言
-     * @var string
-     */
-    protected static $close_all_disable_message_api_url = "http://im.service.open-cloud-api.com/Group/Index/close_all_disable_message.html";
-    /**
-     * 获取群组是否可以发送消息
-     * @var string
-     */
-    protected static $group_is_open_message_api_url = "http://im.service.open-cloud-api.com/Group/Index/group_is_open_message.html";
-    /**
-     * 获取群组列表
-     * @var string
-     */
-    protected static $get_group_lists_api_url = "http://im.service.open-cloud-api.com/Group/Index/get_lists.html";
+    CONST API_LISTS = [
+        /**
+         * 创建群组api
+         */
+        'create_group_api_url'=>"/Group/Index/create_group.html",
+        /**
+         * 获取群组信息
+         */
+        'get_group_info_api_url'=>"/Group/Index/get_info.html",
+        /**
+         * 解散群组
+         */
+        'disband_group_info_api_url'=>"/Group/Index/disband_group.html",
+        /**
+         * 开启全员禁言
+         */
+        'open_all_disable_message_api_url'=>"/Group/Index/open_all_disable_message.html",
+        /**
+         * 关闭全员禁言
+         */
+        'close_all_disable_message_api_url'=>"/Group/Index/close_all_disable_message.html",
+        /**
+         * 获取群组是否可以发送消息
+         */
+        'group_is_open_message_api_url'=>"/Group/Index/group_is_open_message.html",
+        /**
+         * 获取群组列表
+         */
+        'get_group_lists_api_url'=>"/Group/Index/get_lists.html",
+    ];
     /**
      * 实例化群组相关操作
      * Index constructor.
@@ -73,7 +71,14 @@ class Index
     public function create_group($name,$icon,$desc,$join_check,$message)
     {
         try{
-            $result = Http::request('POST',self::$create_group_api_url) -> withBody([
+            /**
+             * 获取api地址
+             */
+            $api_url = $this -> client -> getConfig('im_service_base').self::API_LISTS['create_group_api_url'];
+            /**
+             * 请求接口
+             */
+            $result = Http::request('POST',$api_url) -> withBody([
                 'name'=>$name,
                 'icon'=>$icon,
                 'desc'=>$desc,
@@ -96,7 +101,14 @@ class Index
     public function get_info($group_id)
     {
         try{
-            $result = Http::request('POST',self::$get_group_info_api_url) -> withBody([
+            /**
+             * 获取api地址
+             */
+            $api_url = $this -> client -> getConfig('im_service_base').self::API_LISTS['get_group_info_api_url'];
+            /**
+             * 请求接口
+             */
+            $result = Http::request('POST',$api_url) -> withBody([
                 'group_id'=>$group_id,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
@@ -117,7 +129,14 @@ class Index
     public function group_lists($join_check=null,$keyword=null,$page_num=20,$index=1)
     {
         try{
-            $result = Http::request('POST',self::$get_group_lists_api_url) -> withBody([
+            /**
+             * 获取api地址
+             */
+            $api_url = $this -> client -> getConfig('im_service_base').self::API_LISTS['get_group_lists_api_url'];
+            /**
+             * 请求接口
+             */
+            $result = Http::request('POST',$api_url) -> withBody([
                 'page_num'=>$page_num,
                 'index'=>$index,
                 'keyword'=>$keyword,
@@ -139,7 +158,14 @@ class Index
     public function disband_group($group_id)
     {
         try{
-            $result = Http::request('POST',self::$disband_group_info_api_url) -> withBody([
+            /**
+             * 获取api地址
+             */
+            $api_url = $this -> client -> getConfig('im_service_base').self::API_LISTS['disband_group_info_api_url'];
+            /**
+             * 请求接口
+             */
+            $result = Http::request('POST',$api_url) -> withBody([
                 'group_id'=>$group_id,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
@@ -158,7 +184,14 @@ class Index
     public function open_all_disable_message($group_id)
     {
         try{
-            $result = Http::request('POST',self::$open_all_disable_message_api_url) -> withBody([
+            /**
+             * 获取api地址
+             */
+            $api_url = $this -> client -> getConfig('im_service_base').self::API_LISTS['open_all_disable_message_api_url'];
+            /**
+             * 请求接口
+             */
+            $result = Http::request('POST',$api_url) -> withBody([
                 'group_id'=>$group_id,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
@@ -177,7 +210,14 @@ class Index
     public function close_all_disable_message($group_id)
     {
         try{
-            $result = Http::request('POST',self::$close_all_disable_message_api_url) -> withBody([
+            /**
+             * 获取api地址
+             */
+            $api_url = $this -> client -> getConfig('im_service_base').self::API_LISTS['close_all_disable_message_api_url'];
+            /**
+             * 请求接口
+             */
+            $result = Http::request('POST',$api_url) -> withBody([
                 'group_id'=>$group_id,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
@@ -196,7 +236,14 @@ class Index
     public function group_is_open_message($group_id)
     {
         try{
-            $result = Http::request('POST',self::$group_is_open_message_api_url) -> withBody([
+            /**
+             * 获取api地址
+             */
+            $api_url = $this -> client -> getConfig('im_service_base').self::API_LISTS['group_is_open_message_api_url'];
+            /**
+             * 请求接口
+             */
+            $result = Http::request('POST',$api_url) -> withBody([
                 'group_id'=>$group_id,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
