@@ -17,7 +17,7 @@ class Client
     /**
      * @var string
      */
-    protected $auth_api_url = 'http://auth.open-cloud-api.com/Client/Auth/get_token.html';
+    protected $auth_api_url = 'https://auth-sys.open-cloud-api.com/Client/Auth/get_token.html';
     /**
      * SDK 配置
      * @var null|Config
@@ -41,7 +41,8 @@ class Client
     public function getConfig($name=null)
     {
         if($name != null){
-            return isset($this -> config[$name])?$this -> config[$name]:null;
+            return $this -> config -> {$name};
+//            return isset($this -> config -> {$name})?$this -> config -> {$name}:null;
         }else{
             return $this -> config;
         }

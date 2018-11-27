@@ -22,7 +22,7 @@ class Config
      * @var array
      */
     protected $config = [
-        'im_service_base'=>'http://im.service.open-cloud-api.com'
+        'im_service_base'=>'https://im.service.open-cloud-api.com'
     ];
 
     /**
