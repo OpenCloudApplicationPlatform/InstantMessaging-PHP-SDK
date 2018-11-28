@@ -58,11 +58,12 @@ class Index
      * 创建一个用户
      * @param string $account
      * @param int $status
+     * @param int $password
      * @param array $user_label
      * @return \Doctrine\Common\Collections\ArrayCollection|string
      * @throws \Throwable
      */
-    public function create_user($account,$status,$user_label = [])
+    public function create_user($account,$status,$password,$user_label = [])
     {
         /**
          * 获取api地址
@@ -75,6 +76,7 @@ class Index
             $result = Http::request('POST',$api_url) -> withBody([
                 'account'=>$account,
                 'status'=>$status,
+                'password'=>$password,
                 'user_label'=>$user_label,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
@@ -113,10 +115,11 @@ class Index
     /**
      * 用户获取(客户端使用的)授权token
      * @param string $account
+     * @param string $password
      * @return \Doctrine\Common\Collections\ArrayCollection|string
      * @throws \Throwable
      */
-    public function get_token($account)
+    public function get_token($account,$password = null)
     {
         /**
          * 获取api地址
@@ -128,6 +131,7 @@ class Index
              */
             $result = Http::request('POST',$api_url) -> withBody([
                 'account'=>$account,
+                'password'=>$password,
                 'token'=>$this -> client -> getToken()
             ]) -> send();
             return $result;
