@@ -62,7 +62,7 @@ class Client
                 /**
                  * 请求接口
                  */
-                $res = Http::request('POST',$this -> client -> getConfig('im_service_base').'/Auth/Index/get_token.html') ->
+                $res = Http::request('POST','https://im-service.open-cloud-api.com/Auth/Index/get_token.html') ->
                     withBody(array(
                         'app_id'=>$this -> config -> app_id,
                         'access_key'=>$this -> config -> access_key
